@@ -1,0 +1,36 @@
+import 'package:flutter/material.dart';
+import 'package:spending_prediction/expenses/expense_tracker.dart';
+import 'package:spending_prediction/authentication/forgetpassword.dart';
+import 'package:spending_prediction/authentication/signup.dart';
+import 'package:spending_prediction/authentication/login.dart';
+import 'package:spending_prediction/authentication/start_page.dart';
+
+class AppRoutes {
+  static const String startPage = '/';
+  static const String login = '/login';
+  static const String signup = '/signup';
+  static const String home = '/home';
+  static const String resetPass = '/resetPass';
+
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final builder = routes[settings.name];
+    if (builder != null) {
+      return MaterialPageRoute(builder: builder);
+    }
+    return MaterialPageRoute(
+      builder: (_) => Scaffold(
+        body: Center(child: Text('No route defined for ${settings.name}')),
+      ),
+    );
+  }
+
+  static final Map<String, WidgetBuilder> routes = {
+    startPage: (_) => StartPage(),
+    login: (_) => LoginPage(),
+    signup: (_) => SignUpPage(),
+    home: (_) {
+      return Expenses();
+    },
+    resetPass: (_) => ResetPassPage(),
+  };
+}
